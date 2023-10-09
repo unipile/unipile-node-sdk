@@ -1,0 +1,34 @@
+import { TypeCheck } from '@sinclair/typebox/compiler';
+import { ClientOptions, SupportedProtocols } from './client.js';
+import { TSchema } from '@sinclair/typebox';
+
+export type DefaultHeaders = {
+  'X-API-KEY': string;
+  accept: 'application/json';
+  'Content-Type'?: 'application/json' | 'multipart/form-data';
+};
+
+export type RequestHeaders = Omit<DefaultHeaders, 'X-API-KEY' | 'accept'>;
+
+type OverwritableClientOptions = Partial<
+  Pick<ClientOptions, 'logRequestResult' | 'logRequestPayload' | 'validateRequestPayload'>
+>;
+export type RequestOptions = OverwritableClientOptions; // & {}
+
+export type RequestUrl = {
+  protocol: SupportedProtocols;
+  domain: string;
+  apiVersion: string;
+  path: Array<string>;
+  parameters: Record<string, string>;
+};
+
+export type RequestInput = {
+  method: 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH';
+  path: Array<string>;
+  validator?: TypeCheck<TSchema>;
+  parameters?: Record<string, string>;
+  body?: Record<string, any>;
+  headers?: RequestHeaders;
+  options?: RequestOptions;
+};

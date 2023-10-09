@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": false, // This is a viral option, do not enable https://www.semver-ts.org/#module-interop
+    "allowSyntheticDefaultImports": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "skipLibCheck": false,
+    "outDir": "dist"
+  },
+  "include": ["./src/**/*.ts"]
+}
