@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "target": "ESNext",
+    "target": "ES6",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "esModuleInterop": false, // This is a viral option, do not enable https://www.semver-ts.org/#module-interop
-    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "alwaysStrict": true,
