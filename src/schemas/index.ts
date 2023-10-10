@@ -1,6 +1,5 @@
 export * from './account.schema.js';
 export * from './account-whatsapp.schema.js';
-export * from './account-linkedin.schema.js';
 export * from './chat.schema.js';
 export * from './message.schema.js';
 export * from './chat-attendee.schema.js';

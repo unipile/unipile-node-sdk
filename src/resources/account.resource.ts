@@ -1,5 +1,13 @@
 import QRCode from 'qrcode';
-import { Input, Output, RequestOptions, Response } from '../types/index.js';
+import {
+  GetAccountsInput,
+  Output,
+  PostCodeCheckpointInput,
+  PostHostedAuthLinkInput,
+  PostLinkedinAccountInput,
+  RequestOptions,
+  Response,
+} from '../types/index.js';
 import { UnipileClient } from '../client.js';
 import {
   deleteAccountValidator,
@@ -12,7 +20,7 @@ import {
 export class AccountResource {
   constructor(private client: UnipileClient) {}
 
-  async getAll(input: Input.GetAccounts = {}, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async getAll(input: GetAccountsInput = {}, options?: RequestOptions): Promise<Response.UntypedYet> {
     const { limit, cursor } = input;
 
     const parameters: Record<string, string> = {};
@@ -57,7 +65,7 @@ export class AccountResource {
     };
   }
 
-  async connectLinkedinAccount(input: Input.PostLinkedinAccount, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async connectLinkedinAccount(input: PostLinkedinAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['accounts'],
       method: 'POST',
@@ -73,7 +81,7 @@ export class AccountResource {
     });
   }
 
-  async solveCodeCheckpoint(input: Input.PostCodeCheckpoint, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async solveCodeCheckpoint(input: PostCodeCheckpointInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['accounts', 'checkpoint'],
       method: 'POST',
@@ -95,7 +103,7 @@ export class AccountResource {
     });
   }
 
-  async createHostedAuthLink(input: Input.HostedAuthLink, options?: RequestOptions): Promise<Response.HostedAuthLink> {
+  async createHostedAuthLink(input: PostHostedAuthLinkInput, options?: RequestOptions): Promise<Response.HostedAuthLink> {
     return await this.client.request.send({
       path: ['hosted', 'accounts', 'auth_link'],
       method: 'POST',

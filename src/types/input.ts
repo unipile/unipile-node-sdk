@@ -1,22 +1,13 @@
 import { Static } from '@sinclair/typebox';
 import {
-  getAccountsInputSchema,
   getAllChatAttendeesInputSchema,
   getChatMessagesInputSchema,
   getChatsInputSchema,
   getMessageAttachementInputSchema,
   postChatMessageInputSchema,
-  postCodeCheckpointInputSchema,
-  postHostedAuthLinkInputSchema,
-  postLinkedinAccountInput,
   postWebhookInputSchema,
 } from '../schemas/index.js';
 
-// ACCOUNT
-export type GetAccounts = Static<typeof getAccountsInputSchema>;
-export type PostLinkedinAccount = Static<typeof postLinkedinAccountInput>;
-export type PostCodeCheckpoint = Static<typeof postCodeCheckpointInputSchema>;
-export type HostedAuthLink = Static<typeof postHostedAuthLinkInputSchema>;
 // MESSAGING
 export type GetChats = Static<typeof getChatsInputSchema>;
 export type PostChatMessage = Static<typeof postChatMessageInputSchema>;
