@@ -1,10 +1,10 @@
 type UnipileRawError = {
   message: string;
-  body?: any;
+  body?: unknown;
 };
 
 export class UnipileError extends Error {
-  body: any | undefined;
+  body: unknown | undefined;
 
   constructor(raw: UnipileRawError) {
     super(raw.message);
