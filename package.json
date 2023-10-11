@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "tsc",
-    "postversion": "git push github"
+    "postversion": "git push origin"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.5.0",
