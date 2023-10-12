@@ -10,8 +10,6 @@ The Node.js SDK provides you tools to interact with Unipile’s API with ease. T
 
 Node version 12 or higher.
 
-To be able to use the SDK you need to ask for your personnal hosted instance of Unipile’ app. Then our team will provide you the needed base url and access-token to start using the SDK.
-
 # Installation
 
 ```
