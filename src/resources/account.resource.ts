@@ -45,7 +45,7 @@ export class AccountResource {
     });
   }
 
-  async connectWhatsappAccount(options?: RequestOptions): Promise<Output.PostWhatsappAccount> {
+  async connectWhatsapp(options?: RequestOptions): Promise<Output.PostWhatsappAccount> {
     const response = await this.client.request.send<Response.PostWhatsappAccount>({
       path: ['accounts'],
       method: 'POST',
@@ -60,8 +60,8 @@ export class AccountResource {
     });
 
     return {
-      qrCodeBuffer: await QRCode.toBuffer(response.checkpoint.qrcode),
       qrCodeString: await QRCode.toString(response.checkpoint.qrcode),
+      code: response.checkpoint.qrcode,
     };
   }
 
