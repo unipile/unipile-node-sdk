@@ -65,7 +65,7 @@ export class AccountResource {
     };
   }
 
-  async connectLinkedinAccount(input: PostLinkedinAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async connectLinkedin(input: PostLinkedinAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['accounts'],
       method: 'POST',
