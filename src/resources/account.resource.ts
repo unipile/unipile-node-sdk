@@ -12,7 +12,6 @@ import { UnipileClient } from '../client.js';
 import {
   deleteAccountValidator,
   postHostedAuthLinkValidator,
-  accountSourceStatusValidator,
   untypedYetValidator,
   postWhatsappAccountValidator,
 } from '../validation.js';
@@ -36,12 +35,12 @@ export class AccountResource {
     });
   }
 
-  async getAccountStatus(accountId: string, options?: RequestOptions): Promise<Response.AccountSourceStatus> {
+  async getOne(accountId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
-      path: ['accounts', accountId, 'status'],
+      path: ['accounts', accountId],
       method: 'GET',
       options,
-      validator: accountSourceStatusValidator,
+      validator: untypedYetValidator,
     });
   }
 
