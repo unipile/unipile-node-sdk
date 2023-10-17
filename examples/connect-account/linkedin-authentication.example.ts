@@ -11,7 +11,6 @@ await client.account.connectLinkedin({
 //Authentication with with cookies
 await client.account.connectLinkedin({
   access_token: 'your access token',
-  csrf_token: 'your csrf token',
 });
 
 //Authentication with optional proxy

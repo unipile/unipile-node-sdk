@@ -20,7 +20,6 @@ type LinkedinBasicAuthentication = {
 
 type LinkedinCookieAuthentication = {
   access_token: string;
-  csrf_token: string;
   proxy?: ProxyParams;
 };
 
