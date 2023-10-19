@@ -21,7 +21,7 @@ import {
   postWhatsappAccountSchema,
 } from '../schemas/index.js';
 
-export type UntypedYet = unknown;
+export type UntypedYet = any;
 // ACCOUNT
 export type Accounts = Static<typeof getAccountsResponseSchema>;
 export type AccountSourceStatus = Static<typeof getAccountSourceStatusResponseSchema>;

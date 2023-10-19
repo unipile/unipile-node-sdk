@@ -1,28 +1,36 @@
 import { UnipileClient } from '../client.js';
-import { Input, RequestOptions, Response } from '../types/index.js';
+import { GetAllChatsInput, Input, RequestOptions, Response } from '../types/index.js';
 import {
   getAttendeeValidator,
   getAttendeesValidator,
   getChatAttendeesValidator,
   getChatMessagesValidator,
   getChatValidator,
-  getChatsValidator,
   getMessageAttachementValidator,
   getMessageValidator,
   postChatMessageValidator,
+  untypedYetValidator,
 } from '../validation.js';
 
 export class MessagingResource {
   constructor(private client: UnipileClient) {}
 
-  async getAllChats(input: Input.GetChats, options?: RequestOptions): Promise<Response.GetChats> {
-    //todo handle query parameters
+  async getAllChats(input: GetAllChatsInput = {}, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { before, after, limit, account_type, account_id } = input;
+
+    const parameters: Record<string, string> = {};
+    if (before) parameters.before = before;
+    if (after) parameters.after = after;
+    if (limit) parameters.limit = String(limit);
+    if (account_type) parameters.account_type = account_type;
+    if (account_id) parameters.account_id = account_id;
 
     return await this.client.request.send({
       path: ['chats'],
       method: 'GET',
       options,
-      validator: getChatsValidator,
+      parameters,
+      validator: untypedYetValidator,
     });
   }
 
