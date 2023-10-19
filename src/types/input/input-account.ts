@@ -3,14 +3,17 @@ export type GetAccountsInput = {
   cursor?: string;
 };
 
-/** PostAccountInput */
-export type PostAccountInput = {
+/** ConnectAccountInput */
+export type ConnectAccountInput = {
   provider: 'LINKEDIN' | 'WHATSAPP';
   username?: string;
   password?: string;
   proxy?: ProxyParams;
   access_token?: string;
 };
+
+/** ReconnectAccountInput */
+export type ReconnectAccountInput = ConnectAccountInput & { account_id: string };
 
 /** PostLinkedinAccountInput */
 type ProxyParams = {

@@ -1,11 +1,12 @@
 import QRCode from 'qrcode';
 import {
+  ConnectAccountInput,
   GetAccountsInput,
   Output,
-  PostAccountInput,
   PostCodeCheckpointInput,
   PostHostedAuthLinkInput,
   PostLinkedinAccountInput,
+  ReconnectAccountInput,
   RequestOptions,
   Response,
 } from '../types/index.js';
@@ -40,7 +41,7 @@ export class AccountResource {
     });
   }
 
-  async connect(input: PostAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async connect(input: ConnectAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['accounts'],
       method: 'POST',
@@ -89,9 +90,9 @@ export class AccountResource {
     });
   }
 
-  async solveCodeCheckpoint(input: PostCodeCheckpointInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async reconnect(input: ReconnectAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
-      path: ['accounts', 'checkpoint'],
+      path: ['accounts', input.account_id],
       method: 'POST',
       body: input,
       headers: {
@@ -106,6 +107,19 @@ export class AccountResource {
     return await this.client.request.send({
       path: ['accounts', id],
       method: 'DELETE',
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async solveCodeCheckpoint(input: PostCodeCheckpointInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts', 'checkpoint'],
+      method: 'POST',
+      body: input,
+      headers: {
+        'Content-Type': 'application/json',
+      },
       options,
       validator: untypedYetValidator,
     });
