@@ -1,8 +1,7 @@
 import { Type } from '@sinclair/typebox';
 import { getAllChatAttendeesResponseSchema } from './chat-attendee.schema.js';
 import { messageSchema, getMessagesResponseSchema } from './message.schema.js';
-import { listLimitQuerySchema, cursorParamSchema } from './query-parameters.schema.js';
-import { messagingProviderSchema, UTCDateTimeMsTypeSchema, cursorSchema } from './utils.schema.js';
+import { cursorSchema } from './utils.schema.js';
 
 const ChatFeaturesSchema = Type.Union([Type.Literal('reactions')]);
 
@@ -24,22 +23,6 @@ const chatSchema = Type.Object({
   lastMessage: Type.Optional(Type.Union([messageSchema, Type.Null()])),
 });
 
-/**
- * getChatsInput
- */
-const chatListOptionsQuerySchema = Type.Object({
-  account_id: Type.Optional(Type.String()),
-  account_type: Type.Optional(messagingProviderSchema),
-  after: Type.Optional(UTCDateTimeMsTypeSchema),
-  before: Type.Optional(UTCDateTimeMsTypeSchema),
-  //optional limit
-});
-
-const chatListQuerySchema = Type.Composite([chatListOptionsQuerySchema, listLimitQuerySchema]);
-const listCursorQuerySchema = Type.Composite([Type.Object({ cursor: cursorParamSchema }), listLimitQuerySchema]);
-
-export const getChatsInputSchema = Type.Union([chatListQuerySchema, listCursorQuerySchema]);
-
 export const getChatsResponseSchema = Type.Object({
   object: Type.Literal('ChatList'),
   items: Type.Array(chatSchema),
@@ -59,15 +42,6 @@ export const getChatAttendeesResponseSchema = getAllChatAttendeesResponseSchema;
 
 export const postChatMessageResponseSchema = Type.Object({
   object: Type.Literal('MessageSent'),
-});
-
-export const getChatMessagesInputSchema = Type.Object({
-  chatId: Type.String(),
-  sender_id: Type.Optional(Type.String()),
-  before: Type.Optional(Type.String()),
-  after: Type.Optional(Type.String()),
-  limit: Type.Optional(Type.Number()),
-  cursor: Type.Optional(Type.String()),
 });
 
 export const postChatMessageInputSchema = Type.Object({

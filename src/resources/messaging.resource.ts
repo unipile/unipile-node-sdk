@@ -1,5 +1,5 @@
 import { UnipileClient } from '../client.js';
-import { GetAllChatsInput, Input, RequestOptions, Response } from '../types/index.js';
+import { GetAllChatsInput, Input, RequestOptions, Response, getChatMessagesInput } from '../types/index.js';
 import { getMessageValidator, untypedYetValidator } from '../validation.js';
 
 export class MessagingResource {
@@ -33,8 +33,8 @@ export class MessagingResource {
     });
   }
 
-  async getMessagesByChat(input: Input.GetChatMessages, options?: RequestOptions): Promise<Response.UntypedYet> {
-    const { chatId, sender_id, before, after, limit, cursor } = input;
+  async getAllMessagesFromChat(input: getChatMessagesInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { chat_id, sender_id, before, after, limit, cursor } = input;
 
     const parameters: Record<string, string> = {};
     if (sender_id) parameters.sender_id = sender_id;
@@ -44,7 +44,7 @@ export class MessagingResource {
     if (cursor) parameters.cursor = cursor;
 
     return await this.client.request.send({
-      path: ['chats', chatId, 'messages'],
+      path: ['chats', chat_id, 'messages'],
       method: 'GET',
       parameters,
       options,
