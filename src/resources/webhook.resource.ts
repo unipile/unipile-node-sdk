@@ -1,5 +1,5 @@
 import { UnipileClient } from '../client.js';
-import { Input, RequestOptions, Response } from '../types/index.js';
+import { RequestOptions, Response } from '../types/index.js';
 import { deleteWebhookValidator, getWebhooksValidator, postWebhookValidator } from '../validation.js';
 
 export class WebhookResource {
@@ -14,7 +14,7 @@ export class WebhookResource {
     });
   }
 
-  async create(input: Input.PostWebhook, options?: RequestOptions): Promise<Response.PostWebhook> {
+  async create(input: any, options?: RequestOptions): Promise<Response.PostWebhook> {
     return await this.client.request.send({
       path: ['webhooks'],
       method: 'POST',

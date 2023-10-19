@@ -1,8 +1,9 @@
 import { UnipileClient } from '../client.js';
 import {
+  GetAllAttendeesInput,
   GetAllChatsInput,
   GetAllMessagesFromChatInput,
-  Input,
+  GetMessageAttachementInput,
   PostMessageInput,
   RequestOptions,
   Response,
@@ -78,18 +79,9 @@ export class MessagingResource {
     });
   }
 
-  async getAttendeesByChat(chatId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async getAllAttendeesFromChat(chat_id: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
-      path: ['chats', chatId, 'attendees'],
-      method: 'GET',
-      options,
-      validator: untypedYetValidator,
-    });
-  }
-
-  async getAllMessages(options?: RequestOptions): Promise<Response.UntypedYet> {
-    return await this.client.request.send({
-      path: ['messages'],
+      path: ['chats', chat_id, 'attendees'],
       method: 'GET',
       options,
       validator: untypedYetValidator,
@@ -105,18 +97,36 @@ export class MessagingResource {
     });
   }
 
-  async getAllAttendees(input: Input.GetAttendees, options?: RequestOptions): Promise<Response.UntypedYet> {
-    const { before, after, limit, account_id, account_type } = input;
+  async getAllMessages(options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['messages'],
+      method: 'GET',
+      options,
+      validator: untypedYetValidator,
+    });
+  }
 
-    const parameters: Record<string, string> = {};
-    if (before) parameters.before = before;
-    if (after) parameters.after = after;
-    if (limit) parameters.limit = String(limit);
-    if (account_id) parameters.account_id = account_id;
-    if (account_type) parameters.account_type = account_type;
+  async getMessageAttachment(input: GetMessageAttachementInput, options?: RequestOptions): Promise<Blob> {
+    const { messageId, attachmentId } = input;
 
     return await this.client.request.send({
-      path: ['chat-attendees'],
+      path: ['messages', messageId, 'attachments', attachmentId],
+      method: 'GET',
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getAllAttendees(input: GetAllAttendeesInput = {}, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { cursor, limit, account_id } = input;
+
+    const parameters: Record<string, string> = {};
+    if (cursor) parameters.cursor = cursor;
+    if (limit) parameters.limit = String(limit);
+    if (account_id) parameters.account_id = account_id;
+
+    return await this.client.request.send({
+      path: ['chat_attendees'],
       method: 'GET',
       parameters,
       options,
@@ -126,18 +136,7 @@ export class MessagingResource {
 
   async getAttendee(attendeeId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
-      path: ['chat-attendees', attendeeId],
-      method: 'GET',
-      options,
-      validator: untypedYetValidator,
-    });
-  }
-
-  async getMessageAttachement(input: Input.GetMessageAttachement, options?: RequestOptions): Promise<Blob> {
-    const { messageId, attachementId } = input;
-
-    return await this.client.request.send({
-      path: ['messages', messageId, 'attachments', attachementId],
+      path: ['chat_attendees', attendeeId],
       method: 'GET',
       options,
       validator: untypedYetValidator,

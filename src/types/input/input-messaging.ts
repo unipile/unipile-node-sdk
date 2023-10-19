@@ -20,3 +20,14 @@ export type PostMessageInput = {
   text: string;
   thread_id?: string;
 };
+
+export type GetMessageAttachementInput = {
+  messageId: string;
+  attachmentId: string;
+};
+
+export type GetAllAttendeesInput = {
+  cursor?: string;
+  limit?: number;
+  account_id?: string;
+};

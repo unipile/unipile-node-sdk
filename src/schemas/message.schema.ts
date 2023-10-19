@@ -130,8 +130,3 @@ export const getMessagesResponseSchema = Type.Object({
 });
 
 export const getMessageAttachementResponseSchema = Type.Any();
-
-export const getMessageAttachementInputSchema = Type.Object({
-  messageId: Type.String(),
-  attachementId: Type.String(),
-});
