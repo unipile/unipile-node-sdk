@@ -1,5 +1,12 @@
 import { UnipileClient } from '../client.js';
-import { GetAllChatsInput, Input, RequestOptions, Response, getChatMessagesInput } from '../types/index.js';
+import {
+  GetAllChatsInput,
+  GetAllMessagesFromChatInput,
+  Input,
+  PostMessageInput,
+  RequestOptions,
+  Response,
+} from '../types/index.js';
 import { getMessageValidator, untypedYetValidator } from '../validation.js';
 
 export class MessagingResource {
@@ -33,7 +40,7 @@ export class MessagingResource {
     });
   }
 
-  async getAllMessagesFromChat(input: getChatMessagesInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async getAllMessagesFromChat(input: GetAllMessagesFromChatInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     const { chat_id, sender_id, before, after, limit, cursor } = input;
 
     const parameters: Record<string, string> = {};
@@ -52,29 +59,29 @@ export class MessagingResource {
     });
   }
 
-  async getAttendeesByChat(chatId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
-    return await this.client.request.send({
-      path: ['chats', chatId, 'attendees'],
-      method: 'GET',
-      options,
-      validator: untypedYetValidator,
-    });
-  }
-
-  async sendMessage(input: Input.PostChatMessage, options?: RequestOptions): Promise<Response.UntypedYet> {
-    const { chatId, text, thread_id } = input;
+  async sendMessage(input: PostMessageInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { chat_id, text, thread_id } = input;
     const body = {
       text,
       thread_id,
     };
 
     return await this.client.request.send({
-      path: ['chats', chatId, 'messages'],
+      path: ['chats', chat_id, 'messages'],
       method: 'POST',
       body,
       headers: {
         'Content-Type': 'application/json',
       },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getAttendeesByChat(chatId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['chats', chatId, 'attendees'],
+      method: 'GET',
       options,
       validator: untypedYetValidator,
     });

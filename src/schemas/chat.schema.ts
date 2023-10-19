@@ -43,9 +43,3 @@ export const getChatAttendeesResponseSchema = getAllChatAttendeesResponseSchema;
 export const postChatMessageResponseSchema = Type.Object({
   object: Type.Literal('MessageSent'),
 });
-
-export const postChatMessageInputSchema = Type.Object({
-  chatId: Type.String(),
-  text: Type.String(),
-  thread_id: Type.Optional(Type.String()),
-});
