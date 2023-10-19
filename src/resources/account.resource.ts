@@ -2,6 +2,7 @@ import QRCode from 'qrcode';
 import {
   GetAccountsInput,
   Output,
+  PostAccountInput,
   PostCodeCheckpointInput,
   PostHostedAuthLinkInput,
   PostLinkedinAccountInput,
@@ -34,6 +35,19 @@ export class AccountResource {
     return await this.client.request.send({
       path: ['accounts', accountId],
       method: 'GET',
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async connect(input: PostAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts'],
+      method: 'POST',
+      body: input,
+      headers: {
+        'Content-Type': 'application/json',
+      },
       options,
       validator: untypedYetValidator,
     });

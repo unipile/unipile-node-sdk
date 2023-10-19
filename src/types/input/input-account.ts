@@ -3,6 +3,15 @@ export type GetAccountsInput = {
   cursor?: string;
 };
 
+/** PostAccountInput */
+export type PostAccountInput = {
+  provider: 'LINKEDIN' | 'WHATSAPP';
+  username?: string;
+  password?: string;
+  proxy?: ProxyParams;
+  access_token?: string;
+};
+
 /** PostLinkedinAccountInput */
 type ProxyParams = {
   protocol?: 'https' | 'http' | 'socks5';
