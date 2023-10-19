@@ -37,7 +37,26 @@ export type PostCodeCheckpointInput = {
 /** PostHostedAuthLinkInput */
 type ProviderUsingHostedAuth = 'LINKEDIN' | 'WHATSAPP';
 
-export type PostHostedAuthLinkInput = {
-  providers: '*' | Array<ProviderUsingHostedAuth>;
+type HostedAuthConnectionLinkInput = {
+  type: 'create';
   expiresOn: string;
+  api_url: string;
+  providers: '*' | Array<ProviderUsingHostedAuth>;
+  name?: string;
+  success_redirect_url?: string;
+  failure_redirect_url?: string;
+  notify_url?: string;
 };
+
+type HostedAuthReconnectionLinkInput = {
+  type: 'reconnect';
+  expiresOn: string;
+  api_url: string;
+  reconnect_account: string;
+  name?: string;
+  success_redirect_url?: string;
+  failure_redirect_url?: string;
+  notify_url?: string;
+};
+
+export type PostHostedAuthLinkInput = HostedAuthConnectionLinkInput | HostedAuthReconnectionLinkInput;

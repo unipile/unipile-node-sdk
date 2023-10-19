@@ -99,7 +99,7 @@ export class AccountResource {
 
   async createHostedAuthLink(input: PostHostedAuthLinkInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
-      path: ['hosted', 'accounts', 'auth_link'],
+      path: ['hosted', 'accounts', 'link'],
       method: 'POST',
       body: input,
       headers: {
