@@ -9,12 +9,7 @@ import {
   Response,
 } from '../types/index.js';
 import { UnipileClient } from '../client.js';
-import {
-  deleteAccountValidator,
-  postHostedAuthLinkValidator,
-  untypedYetValidator,
-  postWhatsappAccountValidator,
-} from '../validation.js';
+import { untypedYetValidator, postWhatsappAccountValidator } from '../validation.js';
 
 export class AccountResource {
   constructor(private client: UnipileClient) {}
@@ -93,16 +88,16 @@ export class AccountResource {
     });
   }
 
-  async delete(id: string, options?: RequestOptions): Promise<Response.DeleteAccount> {
+  async delete(id: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['accounts', id],
       method: 'DELETE',
       options,
-      validator: deleteAccountValidator,
+      validator: untypedYetValidator,
     });
   }
 
-  async createHostedAuthLink(input: PostHostedAuthLinkInput, options?: RequestOptions): Promise<Response.HostedAuthLink> {
+  async createHostedAuthLink(input: PostHostedAuthLinkInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['hosted', 'accounts', 'auth_link'],
       method: 'POST',
@@ -111,7 +106,7 @@ export class AccountResource {
         'Content-Type': 'application/json',
       },
       options,
-      validator: postHostedAuthLinkValidator,
+      validator: untypedYetValidator,
     });
   }
 }

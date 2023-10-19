@@ -1,16 +1,6 @@
 import { UnipileClient } from '../client.js';
 import { GetAllChatsInput, Input, RequestOptions, Response } from '../types/index.js';
-import {
-  getAttendeeValidator,
-  getAttendeesValidator,
-  getChatAttendeesValidator,
-  getChatMessagesValidator,
-  getChatValidator,
-  getMessageAttachementValidator,
-  getMessageValidator,
-  postChatMessageValidator,
-  untypedYetValidator,
-} from '../validation.js';
+import { getMessageValidator, untypedYetValidator } from '../validation.js';
 
 export class MessagingResource {
   constructor(private client: UnipileClient) {}
@@ -34,16 +24,16 @@ export class MessagingResource {
     });
   }
 
-  async getChat(chatId: string, options?: RequestOptions): Promise<Response.Chat> {
+  async getChat(chatId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['chats', chatId],
       method: 'GET',
       options,
-      validator: getChatValidator,
+      validator: untypedYetValidator,
     });
   }
 
-  async getMessagesByChat(input: Input.GetChatMessages, options?: RequestOptions): Promise<Response.ChatMessages> {
+  async getMessagesByChat(input: Input.GetChatMessages, options?: RequestOptions): Promise<Response.UntypedYet> {
     const { chatId, sender_id, before, after, limit, cursor } = input;
 
     const parameters: Record<string, string> = {};
@@ -58,20 +48,20 @@ export class MessagingResource {
       method: 'GET',
       parameters,
       options,
-      validator: getChatMessagesValidator,
+      validator: untypedYetValidator,
     });
   }
 
-  async getAttendeesByChat(chatId: string, options?: RequestOptions): Promise<Response.ChatAttendees> {
+  async getAttendeesByChat(chatId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['chats', chatId, 'attendees'],
       method: 'GET',
       options,
-      validator: getChatAttendeesValidator,
+      validator: untypedYetValidator,
     });
   }
 
-  async sendMessage(input: Input.PostChatMessage, options?: RequestOptions): Promise<Response.PostChatMessage> {
+  async sendMessage(input: Input.PostChatMessage, options?: RequestOptions): Promise<Response.UntypedYet> {
     const { chatId, text, thread_id } = input;
     const body = {
       text,
@@ -86,20 +76,20 @@ export class MessagingResource {
         'Content-Type': 'application/json',
       },
       options,
-      validator: postChatMessageValidator,
+      validator: untypedYetValidator,
     });
   }
 
-  async getAllMessages(options?: RequestOptions): Promise<Response.Messages> {
+  async getAllMessages(options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['messages'],
       method: 'GET',
       options,
-      validator: getChatMessagesValidator,
+      validator: untypedYetValidator,
     });
   }
 
-  async getMessage(messageId: string, options?: RequestOptions): Promise<Response.Message> {
+  async getMessage(messageId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['messages', messageId],
       method: 'GET',
@@ -108,7 +98,7 @@ export class MessagingResource {
     });
   }
 
-  async getAllAttendees(input: Input.GetAttendees, options?: RequestOptions): Promise<Response.ChatAttendees> {
+  async getAllAttendees(input: Input.GetAttendees, options?: RequestOptions): Promise<Response.UntypedYet> {
     const { before, after, limit, account_id, account_type } = input;
 
     const parameters: Record<string, string> = {};
@@ -123,16 +113,16 @@ export class MessagingResource {
       method: 'GET',
       parameters,
       options,
-      validator: getAttendeesValidator,
+      validator: untypedYetValidator,
     });
   }
 
-  async getAttendee(attendeeId: string, options?: RequestOptions): Promise<Response.Attendee> {
+  async getAttendee(attendeeId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['chat-attendees', attendeeId],
       method: 'GET',
       options,
-      validator: getAttendeeValidator,
+      validator: untypedYetValidator,
     });
   }
 
@@ -143,7 +133,7 @@ export class MessagingResource {
       path: ['messages', messageId, 'attachments', attachementId],
       method: 'GET',
       options,
-      validator: getMessageAttachementValidator,
+      validator: untypedYetValidator,
     });
   }
 }
