@@ -6,6 +6,14 @@ export type GetAllChatsInput = {
   account_id?: string;
 };
 
+export type GetAllMessagesInput = {
+  before?: string;
+  after?: string;
+  limit?: number;
+  sender_id?: string;
+  account_id?: string;
+};
+
 export type GetAllMessagesFromChatInput = {
   chat_id: string;
   cursor?: string;

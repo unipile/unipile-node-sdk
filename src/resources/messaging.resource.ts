@@ -3,6 +3,7 @@ import {
   GetAllAttendeesInput,
   GetAllChatsInput,
   GetAllMessagesFromChatInput,
+  GetAllMessagesInput,
   GetMessageAttachementInput,
   PostMessageInput,
   RequestOptions,
@@ -97,10 +98,20 @@ export class MessagingResource {
     });
   }
 
-  async getAllMessages(options?: RequestOptions): Promise<Response.UntypedYet> {
+  async getAllMessages(input: GetAllMessagesInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { before, after, limit, sender_id, account_id } = input;
+
+    const parameters: Record<string, string> = {};
+    if (before) parameters.before = before;
+    if (after) parameters.after = after;
+    if (limit) parameters.limit = String(limit);
+    if (sender_id) parameters.sender_id = sender_id;
+    if (account_id) parameters.account_id = account_id;
+
     return await this.client.request.send({
       path: ['messages'],
       method: 'GET',
+      parameters,
       options,
       validator: untypedYetValidator,
     });
