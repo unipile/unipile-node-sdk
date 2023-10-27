@@ -30,8 +30,8 @@ export type PostMessageInput = {
 };
 
 export type GetMessageAttachementInput = {
-  messageId: string;
-  attachmentId: string;
+  message_id: string;
+  attachment_id: string;
 };
 
 export type GetAllAttendeesInput = {

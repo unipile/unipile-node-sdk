@@ -89,9 +89,9 @@ export class MessagingResource {
     });
   }
 
-  async getMessage(messageId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async getMessage(message_id: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
-      path: ['messages', messageId],
+      path: ['messages', message_id],
       method: 'GET',
       options,
       validator: getMessageValidator,
@@ -118,10 +118,10 @@ export class MessagingResource {
   }
 
   async getMessageAttachment(input: GetMessageAttachementInput, options?: RequestOptions): Promise<Blob> {
-    const { messageId, attachmentId } = input;
+    const { message_id, attachment_id } = input;
 
     return await this.client.request.send({
-      path: ['messages', messageId, 'attachments', attachmentId],
+      path: ['messages', message_id, 'attachments', attachment_id],
       method: 'GET',
       options,
       validator: untypedYetValidator,
@@ -145,9 +145,9 @@ export class MessagingResource {
     });
   }
 
-  async getAttendee(attendeeId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async getAttendee(attendee_id: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
-      path: ['chat_attendees', attendeeId],
+      path: ['chat_attendees', attendee_id],
       method: 'GET',
       options,
       validator: untypedYetValidator,

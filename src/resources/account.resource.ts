@@ -32,9 +32,9 @@ export class AccountResource {
     });
   }
 
-  async getOne(accountId: string, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async getOne(account_id: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
-      path: ['accounts', accountId],
+      path: ['accounts', account_id],
       method: 'GET',
       options,
       validator: untypedYetValidator,
@@ -103,9 +103,9 @@ export class AccountResource {
     });
   }
 
-  async delete(id: string, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async delete(account_id: string, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
-      path: ['accounts', id],
+      path: ['accounts', account_id],
       method: 'DELETE',
       options,
       validator: untypedYetValidator,
