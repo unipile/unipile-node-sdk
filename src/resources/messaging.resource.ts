@@ -98,7 +98,7 @@ export class MessagingResource {
     });
   }
 
-  async getAllMessages(input: GetAllMessagesInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async getAllMessages(input: GetAllMessagesInput = {}, options?: RequestOptions): Promise<Response.UntypedYet> {
     const { before, after, limit, sender_id, account_id } = input;
 
     const parameters: Record<string, string> = {};
