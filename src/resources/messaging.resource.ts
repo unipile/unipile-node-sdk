@@ -1,4 +1,3 @@
-import { UnipileClient } from '../client.js';
 import {
   GetAllAttendeesInput,
   GetAllChatsInput,
@@ -8,8 +7,10 @@ import {
   PostMessageInput,
   RequestOptions,
   Response,
-} from '../types/index.js';
-import { getMessageValidator, untypedYetValidator } from '../validation.js';
+  getMessageValidator,
+  untypedYetValidator,
+  UnipileClient,
+} from '../index.js';
 
 export class MessagingResource {
   constructor(private client: UnipileClient) {}

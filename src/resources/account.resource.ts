@@ -9,9 +9,10 @@ import {
   ReconnectAccountInput,
   RequestOptions,
   Response,
-} from '../types/index.js';
-import { UnipileClient } from '../client.js';
-import { untypedYetValidator, postWhatsappAccountValidator } from '../validation.js';
+  untypedYetValidator,
+  postWhatsappAccountValidator,
+  UnipileClient,
+} from '../index.js';
 
 export class AccountResource {
   constructor(private client: UnipileClient) {}
