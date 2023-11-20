@@ -15,7 +15,7 @@ export class MessagingResource {
   constructor(private client: UnipileClient) {}
 
   async getAllChats(input: GetAllChatsInput = {}, options?: RequestOptions): Promise<Response.UntypedYet> {
-    const { before, after, limit, account_type, account_id } = input;
+    const { before, after, limit, account_type, account_id, cursor } = input;
 
     const parameters: Record<string, string> = {};
     if (before) parameters.before = before;
@@ -23,6 +23,7 @@ export class MessagingResource {
     if (limit) parameters.limit = String(limit);
     if (account_type) parameters.account_type = account_type;
     if (account_id) parameters.account_id = account_id;
+    if (cursor) parameters.cursor = cursor;
 
     return await this.client.request.send({
       path: ['chats'],
@@ -99,7 +100,7 @@ export class MessagingResource {
   }
 
   async getAllMessages(input: GetAllMessagesInput = {}, options?: RequestOptions): Promise<Response.UntypedYet> {
-    const { before, after, limit, sender_id, account_id } = input;
+    const { before, after, limit, sender_id, account_id, cursor } = input;
 
     const parameters: Record<string, string> = {};
     if (before) parameters.before = before;
@@ -107,6 +108,7 @@ export class MessagingResource {
     if (limit) parameters.limit = String(limit);
     if (sender_id) parameters.sender_id = sender_id;
     if (account_id) parameters.account_id = account_id;
+    if (cursor) parameters.cursor = cursor;
 
     return await this.client.request.send({
       path: ['messages'],
