@@ -10,6 +10,7 @@ import {
   getMessageValidator,
   untypedYetValidator,
   UnipileClient,
+  GetAllMessagesFromAttendeeInput,
 } from '../index.js';
 
 export class MessagingResource {
@@ -113,6 +114,27 @@ export class MessagingResource {
 
     return await this.client.request.send({
       path: ['messages'],
+      method: 'GET',
+      parameters,
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getAllMessagesFromAttendee(
+    input: GetAllMessagesFromAttendeeInput,
+    options?: RequestOptions,
+  ): Promise<Response.UntypedYet> {
+    const { attendee_id, cursor, before, after, limit } = input;
+
+    const parameters: Record<string, string> = {};
+    if (cursor) parameters.cursor = cursor;
+    if (before) parameters.before = before;
+    if (after) parameters.after = after;
+    if (limit) parameters.limit = String(limit);
+
+    return await this.client.request.send({
+      path: ['chat_attendees', attendee_id, 'messages'],
       method: 'GET',
       parameters,
       options,

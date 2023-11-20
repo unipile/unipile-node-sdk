@@ -25,6 +25,14 @@ export type GetAllMessagesFromChatInput = {
   sender_id?: string;
 };
 
+export type GetAllMessagesFromAttendeeInput = {
+  attendee_id: string;
+  cursor?: string;
+  before?: string;
+  after?: string;
+  limit?: number;
+};
+
 export type PostMessageInput = {
   chat_id: string;
   text: string;
