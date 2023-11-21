@@ -33,6 +33,15 @@ export type GetAllMessagesFromAttendeeInput = {
   limit?: number;
 };
 
+export type GetAllChatsFromAttendeeInput = {
+  attendee_id: string;
+  cursor?: string;
+  before?: string;
+  after?: string;
+  limit?: number;
+  account_id?: string;
+};
+
 export type PostMessageInput = {
   chat_id: string;
   text: string;
