@@ -8,7 +8,7 @@ The Node.js SDK provides you tools to interact with Unipile’s API with ease. T
 
 # Requirements
 
-Node version 12 or higher.
+Node 18 recommended
 
 # Installation
 
