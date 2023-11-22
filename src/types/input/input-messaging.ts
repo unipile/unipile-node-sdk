@@ -49,6 +49,15 @@ export type PostMessageInput = {
   attachments?: Array<Buffer>;
 };
 
+export type PostNewChatInput = {
+  account_id: string;
+  text: string;
+  attendees_ids: string;
+  title?: string;
+  inmail?: string;
+  attachments?: Array<Buffer>;
+};
+
 export type GetMessageAttachementInput = {
   message_id: string;
   attachment_id: string;

@@ -12,6 +12,7 @@ import {
   UnipileClient,
   GetAllMessagesFromAttendeeInput,
   GetAllChatsFromAttendeeInput,
+  PostNewChatInput,
 } from '../index.js';
 import { FormData } from 'formdata-node';
 
@@ -67,18 +68,44 @@ export class MessagingResource {
   }
 
   async sendMessage(input: PostMessageInput, options?: RequestOptions): Promise<Response.UntypedYet> {
-    const { chat_id, text, thread_id } = input;
+    const { chat_id, text, thread_id, attachments } = input;
     const body = new FormData();
 
     body.append('text', text);
     if (thread_id) body.append('thread_id', thread_id);
 
-    if (input.attachments !== undefined) {
-      for (const buffer of input.attachments) body.append('attachments', new Blob([buffer]));
+    if (attachments !== undefined) {
+      for (const buffer of attachments) body.append('attachments', new Blob([buffer]));
     }
 
     return await this.client.request.send({
       path: ['chats', chat_id, 'messages'],
+      method: 'POST',
+      body,
+      headers: {
+        // @todo find why adding the "Content-Type: multipart/form-data" header make the request fail
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async startNewChat(input: PostNewChatInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { account_id, text, title, inmail, attendees_ids, attachments } = input;
+    const body = new FormData();
+
+    body.append('account_id', account_id);
+    body.append('text', text);
+    for (const id of attendees_ids) body.append('attendees_ids', id);
+
+    if (title) body.append('title', title);
+    if (inmail) body.append('inmail', inmail);
+    if (attachments !== undefined) {
+      for (const buffer of attachments) body.append('attachments', new Blob([buffer]));
+    }
+
+    return await this.client.request.send({
+      path: ['chats'],
       method: 'POST',
       body,
       headers: {
