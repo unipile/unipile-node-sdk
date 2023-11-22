@@ -46,6 +46,7 @@ export type PostMessageInput = {
   chat_id: string;
   text: string;
   thread_id?: string;
+  attachments?: Array<Buffer>;
 };
 
 export type GetMessageAttachementInput = {

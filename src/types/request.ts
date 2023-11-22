@@ -5,7 +5,7 @@ import { TSchema } from '@sinclair/typebox';
 export type DefaultHeaders = {
   'X-API-KEY': string;
   accept: 'application/json';
-  'Content-Type'?: 'application/json' | 'multipart/form-data';
+  'Content-Type'?: 'application/json' | 'multipart/form-data; boundary=UNIPILE-BOUNDARY';
 };
 
 export type RequestHeaders = Omit<DefaultHeaders, 'X-API-KEY' | 'accept'>;

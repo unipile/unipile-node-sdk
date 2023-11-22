@@ -28,6 +28,7 @@
   "dependencies": {
     "@sinclair/typebox": "^0.31.8",
     "@types/qrcode": "^1.5.2",
+    "formdata-node": "^6.0.3",
     "node-fetch": "^3.3.2",
     "qrcode": "^1.5.3"
   }

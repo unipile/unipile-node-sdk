@@ -28,10 +28,15 @@ export class RequestSender {
       parameters: input.parameters ?? {},
     });
 
+    let parsedBody;
+    if (input.body !== undefined && input.headers?.['Content-Type'] === 'application/json')
+      parsedBody = JSON.stringify(input.body);
+    else parsedBody = input.body || undefined;
+
     const response = await fetch(url, {
       method: input.method,
       headers: Object.assign({}, this.defaultHeaders, input.headers ?? {}),
-      body: input.body ? JSON.stringify(input.body) : undefined,
+      body: parsedBody as any,
     });
 
     if (options.logRequestResult ?? this.clientState.logRequestResult)

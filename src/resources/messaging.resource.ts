@@ -13,6 +13,7 @@ import {
   GetAllMessagesFromAttendeeInput,
   GetAllChatsFromAttendeeInput,
 } from '../index.js';
+import { FormData } from 'formdata-node';
 
 export class MessagingResource {
   constructor(private client: UnipileClient) {}
@@ -67,17 +68,21 @@ export class MessagingResource {
 
   async sendMessage(input: PostMessageInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     const { chat_id, text, thread_id } = input;
-    const body = {
-      text,
-      thread_id,
-    };
+    const body = new FormData();
+
+    body.append('text', text);
+    if (thread_id) body.append('thread_id', thread_id);
+
+    if (input.attachments !== undefined) {
+      for (const buffer of input.attachments) body.append('attachments', new Blob([buffer]));
+    }
 
     return await this.client.request.send({
       path: ['chats', chat_id, 'messages'],
       method: 'POST',
       body,
       headers: {
-        'Content-Type': 'application/json',
+        // @todo find why adding the "Content-Type: multipart/form-data" header make the request fail
       },
       options,
       validator: untypedYetValidator,
