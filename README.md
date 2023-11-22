@@ -21,7 +21,7 @@ Node 18 recommended
 ```javascript
 import { UnipileClient } from 'unipile-node-sdk';
 
-const client = new UnipileClient('your base url', 'your access token');
+const client = new UnipileClient('https://apiX.unipile.com:XXXX', 'your access token');
 
 await client.account.connectLinkedin({
   username: 'your username',
