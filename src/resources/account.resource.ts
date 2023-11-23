@@ -12,6 +12,7 @@ import {
   untypedYetValidator,
   postWhatsappAccountValidator,
   UnipileClient,
+  PostInstagramAccountInput,
 } from '../index.js';
 
 export class AccountResource {
@@ -81,6 +82,22 @@ export class AccountResource {
       method: 'POST',
       body: {
         provider: 'LINKEDIN',
+        ...input,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async connectInstagram(input: PostInstagramAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts'],
+      method: 'POST',
+      body: {
+        provider: 'INSTAGRAM',
         ...input,
       },
       headers: {

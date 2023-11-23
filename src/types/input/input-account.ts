@@ -37,6 +37,12 @@ type LinkedinCookieAuthentication = {
 
 export type PostLinkedinAccountInput = LinkedinBasicAuthentication | LinkedinCookieAuthentication;
 
+/** PostInstagramAccountInput */
+export type PostInstagramAccountInput = {
+  username: string;
+  password: string;
+};
+
 /** PostCodeCheckpointInput */
 type ProviderUsingCodeCheckpoint = 'LINKEDIN'; // union
 
