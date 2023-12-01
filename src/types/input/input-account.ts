@@ -44,7 +44,7 @@ export type PostInstagramAccountInput = {
 };
 
 /** PostCodeCheckpointInput */
-type ProviderUsingCodeCheckpoint = 'LINKEDIN'; // union
+type ProviderUsingCodeCheckpoint = 'LINKEDIN' | 'INSTAGRAM';
 
 export type PostCodeCheckpointInput = {
   provider: ProviderUsingCodeCheckpoint;
