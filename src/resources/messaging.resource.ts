@@ -15,6 +15,7 @@ import {
   PostNewChatInput,
 } from '../index.js';
 import { FormData } from 'formdata-node';
+import { Blob } from 'node-fetch';
 
 export class MessagingResource {
   constructor(private client: UnipileClient) {}
