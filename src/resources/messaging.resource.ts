@@ -104,7 +104,9 @@ export class MessagingResource {
     if (title) body.append('title', title);
     if (inmail) body.append('inmail', inmail);
     if (attachments !== undefined) {
-      for (const buffer of attachments) body.append('attachments', new Blob([buffer]));
+      for (const [filename, buffer] of attachments) {
+        body.append('attachments', new Blob([buffer]), filename);
+      }
     }
 
     return await this.client.request.send({
