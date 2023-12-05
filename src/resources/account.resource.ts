@@ -13,6 +13,7 @@ import {
   postWhatsappAccountValidator,
   UnipileClient,
   PostInstagramAccountInput,
+  PostMessengerAccountInput,
 } from '../index.js';
 
 export class AccountResource {
@@ -98,6 +99,22 @@ export class AccountResource {
       method: 'POST',
       body: {
         provider: 'INSTAGRAM',
+        ...input,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async connectMessenger(input: PostMessengerAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts'],
+      method: 'POST',
+      body: {
+        provider: 'MESSENGER',
         ...input,
       },
       headers: {

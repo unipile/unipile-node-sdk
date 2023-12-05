@@ -5,7 +5,7 @@ export type GetAccountsInput = {
 
 /** ConnectAccountInput */
 export type ConnectAccountInput = {
-  provider: 'LINKEDIN' | 'WHATSAPP';
+  provider: 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER';
   username?: string;
   password?: string;
   proxy?: ProxyParams;
@@ -43,6 +43,12 @@ export type PostInstagramAccountInput = {
   password: string;
 };
 
+/** PostMessengerAccountInput */
+export type PostMessengerAccountInput = {
+  username: string;
+  password: string;
+};
+
 /** PostCodeCheckpointInput */
 type ProviderUsingCodeCheckpoint = 'LINKEDIN' | 'INSTAGRAM';
 
@@ -53,7 +59,7 @@ export type PostCodeCheckpointInput = {
 };
 
 /** PostHostedAuthLinkInput */
-type ProviderUsingHostedAuth = 'LINKEDIN' | 'WHATSAPP';
+type ProviderUsingHostedAuth = 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER';
 
 type HostedAuthConnectionLinkInput = {
   type: 'create';
