@@ -18,8 +18,6 @@ Node 18 recommended
 
 # Usage
 
-## Linkedin
-
 ```javascript
 import { UnipileClient } from 'unipile-node-sdk';
 
