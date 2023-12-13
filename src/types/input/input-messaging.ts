@@ -2,7 +2,7 @@ export type GetAllChatsInput = {
   before?: string;
   after?: string;
   limit?: number;
-  account_type?: 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER';
+  account_type?: 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER' | 'TELEGRAM';
   account_id?: string;
   cursor?: string;
 };
