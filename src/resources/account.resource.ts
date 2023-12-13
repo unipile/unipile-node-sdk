@@ -57,6 +57,19 @@ export class AccountResource {
     });
   }
 
+  async reconnect(input: ReconnectAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts', input.account_id],
+      method: 'POST',
+      body: input,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
   async connectWhatsapp(options?: RequestOptions): Promise<Output.PostQrCodeBasedAccount> {
     const response = await this.client.request.send<Response.PostQrCodeBasedAccount>({
       path: ['accounts'],
@@ -153,9 +166,47 @@ export class AccountResource {
     });
   }
 
+  async reconnectLinkedin(
+    input: PostLinkedinAccountInput & { account_id: string },
+    options?: RequestOptions,
+  ): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts', input.account_id],
+      method: 'POST',
+      body: {
+        provider: 'LINKEDIN',
+        ...input,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
   async connectInstagram(input: PostInstagramAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['accounts'],
+      method: 'POST',
+      body: {
+        provider: 'INSTAGRAM',
+        ...input,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async reconnectInstagram(
+    input: PostInstagramAccountInput & { account_id: string },
+    options?: RequestOptions,
+  ): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts', input.account_id],
       method: 'POST',
       body: {
         provider: 'INSTAGRAM',
@@ -185,11 +236,17 @@ export class AccountResource {
     });
   }
 
-  async reconnect(input: ReconnectAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async reconnectMessenger(
+    input: PostMessengerAccountInput & { account_id: string },
+    options?: RequestOptions,
+  ): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['accounts', input.account_id],
       method: 'POST',
-      body: input,
+      body: {
+        provider: 'MESSENGER',
+        ...input,
+      },
       headers: {
         'Content-Type': 'application/json',
       },
