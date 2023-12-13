@@ -5,7 +5,7 @@ export type GetAccountsInput = {
 
 /** ConnectAccountInput */
 export type ConnectAccountInput = {
-  provider: 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER';
+  provider: 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER' | 'TELEGRAM';
   username?: string;
   password?: string;
   proxy?: ProxyParams;

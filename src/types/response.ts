@@ -18,7 +18,7 @@ import {
   postHostedAuthLinkResponseSchema,
   postWebhookResponseSchema,
   getAccountSourceStatusResponseSchema,
-  postWhatsappAccountSchema,
+  postQrCodeBasedAccountSchema,
 } from '../schemas/index.js';
 
 export type UntypedYet = any;
@@ -26,7 +26,7 @@ export type UntypedYet = any;
 export type Accounts = Static<typeof getAccountsResponseSchema>;
 export type AccountSourceStatus = Static<typeof getAccountSourceStatusResponseSchema>;
 export type PostAccount = Static<typeof postAccountResponseSchema>;
-export type PostWhatsappAccount = Static<typeof postWhatsappAccountSchema>;
+export type PostQrCodeBasedAccount = Static<typeof postQrCodeBasedAccountSchema>;
 export type DeleteAccount = Static<typeof deleteAccountResponseSchema>;
 export type HostedAuthLink = Static<typeof postHostedAuthLinkResponseSchema>;
 // MESSAGING

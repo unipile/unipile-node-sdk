@@ -10,10 +10,10 @@ import {
   RequestOptions,
   Response,
   untypedYetValidator,
-  postWhatsappAccountValidator,
   UnipileClient,
   PostInstagramAccountInput,
   PostMessengerAccountInput,
+  postQrCodeBasedAccountValidator,
 } from '../index.js';
 
 export class AccountResource {
@@ -57,8 +57,8 @@ export class AccountResource {
     });
   }
 
-  async connectWhatsapp(options?: RequestOptions): Promise<Output.PostWhatsappAccount> {
-    const response = await this.client.request.send<Response.PostWhatsappAccount>({
+  async connectWhatsapp(options?: RequestOptions): Promise<Output.PostQrCodeBasedAccount> {
+    const response = await this.client.request.send<Response.PostQrCodeBasedAccount>({
       path: ['accounts'],
       method: 'POST',
       body: {
@@ -68,7 +68,67 @@ export class AccountResource {
         'Content-Type': 'application/json',
       },
       options,
-      validator: postWhatsappAccountValidator,
+      validator: postQrCodeBasedAccountValidator,
+    });
+
+    return {
+      qrCodeString: await QRCode.toString(response.checkpoint.qrcode),
+      code: response.checkpoint.qrcode,
+    };
+  }
+
+  async reconnectWhatsapp(account_id: string, options?: RequestOptions): Promise<Output.PostQrCodeBasedAccount> {
+    const response = await this.client.request.send<Response.PostQrCodeBasedAccount>({
+      path: ['accounts', account_id],
+      method: 'POST',
+      body: {
+        provider: 'WHATSAPP',
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: postQrCodeBasedAccountValidator,
+    });
+
+    return {
+      qrCodeString: await QRCode.toString(response.checkpoint.qrcode),
+      code: response.checkpoint.qrcode,
+    };
+  }
+
+  async connectTelegram(options?: RequestOptions): Promise<Output.PostQrCodeBasedAccount> {
+    const response = await this.client.request.send<Response.PostQrCodeBasedAccount>({
+      path: ['accounts'],
+      method: 'POST',
+      body: {
+        provider: 'TELEGRAM',
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: postQrCodeBasedAccountValidator,
+    });
+
+    return {
+      qrCodeString: await QRCode.toString(response.checkpoint.qrcode),
+      code: response.checkpoint.qrcode,
+    };
+  }
+
+  async reconnectTelegram(account_id: string, options?: RequestOptions): Promise<Output.PostQrCodeBasedAccount> {
+    const response = await this.client.request.send<Response.PostQrCodeBasedAccount>({
+      path: ['accounts', account_id],
+      method: 'POST',
+      body: {
+        provider: 'TELEGRAM',
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: postQrCodeBasedAccountValidator,
     });
 
     return {

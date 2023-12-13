@@ -17,8 +17,8 @@ import {
   postAccountResponseSchema,
   postChatMessageResponseSchema,
   postHostedAuthLinkResponseSchema,
+  postQrCodeBasedAccountSchema,
   postWebhookResponseSchema,
-  postWhatsappAccountSchema,
 } from './schemas/index.js';
 import { Type } from '@sinclair/typebox';
 
@@ -28,7 +28,7 @@ export const untypedYetValidator = TypeCompiler.Compile(Type.Unknown());
 export const accountsValidator = TypeCompiler.Compile(getAccountsResponseSchema);
 export const accountSourceStatusValidator = TypeCompiler.Compile(getAccountSourceStatusResponseSchema);
 export const postAccountValidator = TypeCompiler.Compile(postAccountResponseSchema);
-export const postWhatsappAccountValidator = TypeCompiler.Compile(postWhatsappAccountSchema);
+export const postQrCodeBasedAccountValidator = TypeCompiler.Compile(postQrCodeBasedAccountSchema);
 export const deleteAccountValidator = TypeCompiler.Compile(deleteAccountResponseSchema);
 export const postHostedAuthLinkValidator = TypeCompiler.Compile(postHostedAuthLinkResponseSchema);
 // MESSAGING
