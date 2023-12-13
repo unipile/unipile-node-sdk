@@ -1,8 +1,10 @@
+import { SupportedProvider } from '../client.js';
+
 export type GetAllChatsInput = {
   before?: string;
   after?: string;
   limit?: number;
-  account_type?: 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER' | 'TELEGRAM';
+  account_type?: SupportedProvider;
   account_id?: string;
   cursor?: string;
 };

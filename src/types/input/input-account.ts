@@ -1,3 +1,5 @@
+import { SupportedProvider } from '../client.js';
+
 export type GetAccountsInput = {
   limit?: number;
   cursor?: string;
@@ -5,7 +7,7 @@ export type GetAccountsInput = {
 
 /** ConnectAccountInput */
 export type ConnectAccountInput = {
-  provider: 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER' | 'TELEGRAM';
+  provider: SupportedProvider;
   username?: string;
   password?: string;
   proxy?: ProxyParams;
@@ -59,13 +61,12 @@ export type PostCodeCheckpointInput = {
 };
 
 /** PostHostedAuthLinkInput */
-type ProviderUsingHostedAuth = 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER';
 
 type HostedAuthConnectionLinkInput = {
   type: 'create';
   expiresOn: string;
   api_url: string;
-  providers: '*' | Array<ProviderUsingHostedAuth>;
+  providers: '*' | Array<SupportedProvider>;
   name?: string;
   success_redirect_url?: string;
   failure_redirect_url?: string;
