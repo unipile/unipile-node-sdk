@@ -18,15 +18,40 @@ Node 18 recommended
 
 # Usage
 
+## Linkedin
+
 ```javascript
 import { UnipileClient } from 'unipile-node-sdk';
 
 const client = new UnipileClient('https://apiX.unipile.com:XXXX', 'your access token');
 
+//LINKEDIN
 await client.account.connectLinkedin({
-  username: 'your username',
-  password: 'your password',
+  username: 'your LinkedIn username',
+  password: 'your LinkedIn password',
 });
 
-const messageListResponse = await client.messaging.getAllMessages();
+//INSTAGRAM
+await client.account.connectInstagram({
+  username: 'your Instagram username',
+  password: 'your Instagram password',
+});
+
+//WHATSAPP
+const { qrCodeString: whatsappQrCode } = await client.account.connectWhatsapp();
+console.log(whatsappQrCode); // scan the QR code to finish the connection
+
+//TELEGRAM
+const { qrCodeString: telegramQrCode } = await client.account.connectTelegram();
+console.log(telegramQrCode); // scan the QR code to finish the connection
+
+//MESSENGER
+await client.account.connectMessenger({
+  username: 'your Messenger username',
+  password: 'your Messenger password',
+});
+
+const chats = await client.messaging.getAllChats();
+const messages = await client.messaging.getAllMessages();
+const attendees = await client.messaging.getAllAttendees();
 ```
