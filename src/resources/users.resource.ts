@@ -8,6 +8,7 @@ import {
   GetAllPostsInput,
   GetPostInput,
   GetAllPostCommentsInput,
+  SendPostCommentInput,
 } from '../index.js';
 
 export class UsersResource {
@@ -78,6 +79,24 @@ export class UsersResource {
       method: 'GET',
       parameters: {
         account_id,
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async sendPostComment(input: SendPostCommentInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { account_id, post_id, text } = input;
+
+    return await this.client.request.send({
+      path: ['posts', post_id, 'comments'],
+      method: 'POST',
+      body: {
+        account_id,
+        text,
+      },
+      headers: {
+        'Content-Type': 'application/json',
       },
       options,
       validator: untypedYetValidator,

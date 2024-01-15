@@ -26,3 +26,9 @@ export type GetAllPostCommentsInput = {
   account_id: string;
   post_id: string;
 };
+
+export type SendPostCommentInput = {
+  account_id: string;
+  post_id: string;
+  text: string;
+};
