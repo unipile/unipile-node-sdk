@@ -7,6 +7,7 @@ import {
   PostInvitationInput,
   GetAllPostsInput,
   GetPostInput,
+  GetAllPostCommentsInput,
 } from '../index.js';
 
 export class UsersResource {
@@ -60,6 +61,20 @@ export class UsersResource {
 
     return await this.client.request.send({
       path: ['posts', post_id],
+      method: 'GET',
+      parameters: {
+        account_id,
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getAllPostComments(input: GetAllPostCommentsInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { account_id, post_id } = input;
+
+    return await this.client.request.send({
+      path: ['posts', post_id, 'comments'],
       method: 'GET',
       parameters: {
         account_id,

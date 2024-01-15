@@ -21,3 +21,8 @@ export type GetPostInput = {
   account_id: string;
   post_id: string;
 };
+
+export type GetAllPostCommentsInput = {
+  account_id: string;
+  post_id: string;
+};
