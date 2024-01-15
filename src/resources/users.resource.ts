@@ -6,6 +6,7 @@ import {
   Response,
   PostInvitationInput,
   GetAllPostsInput,
+  GetPostInput,
 } from '../index.js';
 
 export class UsersResource {
@@ -40,15 +41,29 @@ export class UsersResource {
     const { identifier, account_id, limit, is_company, cursor } = input;
 
     const parameters: Record<string, string> = {};
+    parameters.account_id = account_id;
     if (is_company) parameters.is_company = is_company ? 'true' : 'false';
     if (limit) parameters.limit = String(limit);
-    if (account_id) parameters.account_id = account_id;
     if (cursor) parameters.cursor = cursor;
 
     return await this.client.request.send({
       path: ['users', identifier, 'posts'],
       method: 'GET',
       parameters,
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getPost(input: GetPostInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { account_id, post_id } = input;
+
+    return await this.client.request.send({
+      path: ['posts', post_id],
+      method: 'GET',
+      parameters: {
+        account_id,
+      },
       options,
       validator: untypedYetValidator,
     });

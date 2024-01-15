@@ -16,3 +16,8 @@ export type GetAllPostsInput = {
   is_company?: boolean;
   cursor?: string;
 };
+
+export type GetPostInput = {
+  account_id: string;
+  post_id: string;
+};
