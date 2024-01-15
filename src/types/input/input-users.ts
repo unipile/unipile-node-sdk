@@ -8,3 +8,11 @@ export type PostInvitationInput = {
   provider_id: string;
   message?: string;
 };
+
+export type GetAllPostsInput = {
+  account_id: string;
+  identifier: string;
+  limit?: number;
+  is_company?: boolean;
+  cursor?: string;
+};

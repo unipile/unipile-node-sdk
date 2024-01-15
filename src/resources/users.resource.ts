@@ -1,4 +1,12 @@
-import { GetProfileInput, RequestOptions, UnipileClient, untypedYetValidator, Response, PostInvitationInput } from '../index.js';
+import {
+  GetProfileInput,
+  RequestOptions,
+  UnipileClient,
+  untypedYetValidator,
+  Response,
+  PostInvitationInput,
+  GetAllPostsInput,
+} from '../index.js';
 
 export class UsersResource {
   constructor(private client: UnipileClient) {}
@@ -23,6 +31,24 @@ export class UsersResource {
       headers: {
         'Content-Type': 'application/json',
       },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getAllPosts(input: GetAllPostsInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { identifier, account_id, limit, is_company, cursor } = input;
+
+    const parameters: Record<string, string> = {};
+    if (is_company) parameters.is_company = is_company ? 'true' : 'false';
+    if (limit) parameters.limit = String(limit);
+    if (account_id) parameters.account_id = account_id;
+    if (cursor) parameters.cursor = cursor;
+
+    return await this.client.request.send({
+      path: ['users', identifier, 'posts'],
+      method: 'GET',
+      parameters,
       options,
       validator: untypedYetValidator,
     });
