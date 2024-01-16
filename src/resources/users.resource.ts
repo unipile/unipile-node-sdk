@@ -72,14 +72,17 @@ export class UsersResource {
   }
 
   async getAllPostComments(input: GetAllPostCommentsInput, options?: RequestOptions): Promise<Response.UntypedYet> {
-    const { account_id, post_id } = input;
+    const { account_id, post_id, limit, cursor } = input;
+
+    const parameters: Record<string, string> = {};
+    parameters.account_id = account_id;
+    if (limit) parameters.limit = String(limit);
+    if (cursor) parameters.cursor = cursor;
 
     return await this.client.request.send({
       path: ['posts', post_id, 'comments'],
       method: 'GET',
-      parameters: {
-        account_id,
-      },
+      parameters,
       options,
       validator: untypedYetValidator,
     });
