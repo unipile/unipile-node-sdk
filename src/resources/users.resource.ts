@@ -10,6 +10,7 @@ import {
   GetAllPostCommentsInput,
   SendPostCommentInput,
   SendPostReactionInput,
+  GetAllInvitationsSentInput,
 } from '../index.js';
 
 export class UsersResource {
@@ -115,6 +116,23 @@ export class UsersResource {
       headers: {
         'Content-Type': 'application/json',
       },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getAllInvitationsSent(input: GetAllInvitationsSentInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { account_id, limit, cursor } = input;
+
+    const parameters: Record<string, string> = {};
+    parameters.account_id = account_id;
+    if (limit !== undefined && limit > 0) parameters.limit = String(limit);
+    if (cursor) parameters.cursor = cursor;
+
+    return await this.client.request.send({
+      path: ['users', 'invite', 'sent'],
+      method: 'GET',
+      parameters,
       options,
       validator: untypedYetValidator,
     });

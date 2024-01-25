@@ -40,3 +40,9 @@ export type SendPostReactionInput = {
   post_id: string;
   reaction_type: 'like' | 'celebrate' | 'support' | 'love' | 'insightful' | 'funny';
 };
+
+export type GetAllInvitationsSentInput = {
+  account_id: string;
+  limit?: number;
+  cursor?: string;
+};
