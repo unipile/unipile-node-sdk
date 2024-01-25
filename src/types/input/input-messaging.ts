@@ -7,6 +7,7 @@ export type GetAllChatsInput = {
   account_type?: SupportedProvider;
   account_id?: string;
   cursor?: string;
+  only_unreads?: boolean;
 };
 
 export type GetAllMessagesInput = {
