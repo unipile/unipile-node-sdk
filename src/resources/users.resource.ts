@@ -45,7 +45,7 @@ export class UsersResource {
 
     const parameters: Record<string, string> = {};
     parameters.account_id = account_id;
-    if (is_company) parameters.is_company = is_company ? 'true' : 'false';
+    if (is_company !== undefined) parameters.is_company = is_company ? 'true' : 'false';
     if (limit) parameters.limit = String(limit);
     if (cursor) parameters.cursor = cursor;
 
