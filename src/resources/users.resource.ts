@@ -11,6 +11,7 @@ import {
   SendPostCommentInput,
   SendPostReactionInput,
   GetAllInvitationsSentInput,
+  CancelInvitationsSentInput,
 } from '../index.js';
 
 export class UsersResource {
@@ -133,6 +134,20 @@ export class UsersResource {
       path: ['users', 'invite', 'sent'],
       method: 'GET',
       parameters,
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async cancelInvitationSent(input: CancelInvitationsSentInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { account_id, invitation_id } = input;
+
+    return await this.client.request.send({
+      path: ['users', 'invite', 'sent', invitation_id],
+      method: 'DELETE',
+      parameters: {
+        account_id,
+      },
       options,
       validator: untypedYetValidator,
     });

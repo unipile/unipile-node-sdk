@@ -46,3 +46,8 @@ export type GetAllInvitationsSentInput = {
   limit?: number;
   cursor?: string;
 };
+
+export type CancelInvitationsSentInput = {
+  account_id: string;
+  invitation_id: string;
+};
