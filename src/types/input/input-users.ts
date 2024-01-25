@@ -34,3 +34,9 @@ export type SendPostCommentInput = {
   post_id: string;
   text: string;
 };
+
+export type SendPostReactionInput = {
+  account_id: string;
+  post_id: string;
+  reaction_type: 'like' | 'celebrate' | 'support' | 'love' | 'insightful' | 'funny';
+};

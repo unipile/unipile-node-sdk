@@ -9,6 +9,7 @@ import {
   GetPostInput,
   GetAllPostCommentsInput,
   SendPostCommentInput,
+  SendPostReactionInput,
 } from '../index.js';
 
 export class UsersResource {
@@ -98,6 +99,19 @@ export class UsersResource {
         account_id,
         text,
       },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async sendPostReaction(input: SendPostReactionInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['posts', 'reaction'],
+      method: 'POST',
+      body: input,
       headers: {
         'Content-Type': 'application/json',
       },
