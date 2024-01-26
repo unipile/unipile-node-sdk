@@ -111,7 +111,7 @@ export class UsersResource {
 
     const parameters: Record<string, string> = {};
     parameters.account_id = account_id;
-    if (limit) parameters.limit = String(limit);
+    if (limit !== undefined && limit > 0) parameters.limit = String(limit);
     if (cursor) parameters.cursor = cursor;
 
     return await this.client.request.send({
