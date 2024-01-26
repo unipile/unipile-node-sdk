@@ -12,6 +12,7 @@ import {
   SendPostReactionInput,
   GetAllInvitationsSentInput,
   CancelInvitationsSentInput,
+  GetAllRelationsInput,
 } from '../index.js';
 
 export class UsersResource {
@@ -39,6 +40,23 @@ export class UsersResource {
       method: 'GET',
       options,
       parameters: { account_id },
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getAllRelations(input: GetAllRelationsInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { account_id, limit, cursor } = input;
+
+    const parameters: Record<string, string> = {};
+    parameters.account_id = account_id;
+    if (limit !== undefined && limit > 0) parameters.limit = String(limit);
+    if (cursor) parameters.cursor = cursor;
+
+    return await this.client.request.send({
+      path: ['users', 'relations'],
+      method: 'GET',
+      options,
+      parameters,
       validator: untypedYetValidator,
     });
   }

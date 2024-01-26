@@ -4,6 +4,12 @@ export type GetProfileInput = {
   linkedin_api?: string;
 };
 
+export type GetAllRelationsInput = {
+  account_id: string;
+  limit?: number;
+  cursor?: string;
+};
+
 export type PostInvitationInput = {
   account_id: string;
   provider_id: string;
