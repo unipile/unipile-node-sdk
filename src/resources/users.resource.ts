@@ -19,9 +19,18 @@ export class UsersResource {
 
   async getProfile(input: GetProfileInput, options?: RequestOptions): Promise<Response.UntypedYet> {
     const { identifier, account_id } = input;
-
     return await this.client.request.send({
       path: ['users', identifier],
+      method: 'GET',
+      options,
+      parameters: { account_id },
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getOwnProfile(account_id: string, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['users', 'me'],
       method: 'GET',
       options,
       parameters: { account_id },
