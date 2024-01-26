@@ -18,12 +18,17 @@ export class UsersResource {
   constructor(private client: UnipileClient) {}
 
   async getProfile(input: GetProfileInput, options?: RequestOptions): Promise<Response.UntypedYet> {
-    const { identifier, account_id } = input;
+    const { identifier, account_id, linkedin_api } = input;
+
+    const parameters: Record<string, string> = {};
+    parameters.account_id = account_id;
+    if (linkedin_api) parameters.linkedin_api = linkedin_api;
+
     return await this.client.request.send({
       path: ['users', identifier],
       method: 'GET',
       options,
-      parameters: { account_id },
+      parameters,
       validator: untypedYetValidator,
     });
   }

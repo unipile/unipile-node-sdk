@@ -1,6 +1,7 @@
 export type GetProfileInput = {
   account_id: string;
   identifier: string;
+  linkedin_api?: string;
 };
 
 export type PostInvitationInput = {
