@@ -45,7 +45,7 @@ export type SendPostCommentInput = {
 export type SendPostReactionInput = {
   account_id: string;
   post_id: string;
-  reaction_type: 'like' | 'celebrate' | 'support' | 'love' | 'insightful' | 'funny';
+  reaction_type?: 'like' | 'celebrate' | 'support' | 'love' | 'insightful' | 'funny';
 };
 
 export type GetAllInvitationsSentInput = {
