@@ -1,6 +1,6 @@
 export type SupportedProtocols = 'http' | 'https';
 export type ApiVersion = 'v1' | 'v2';
-export type SupportedProvider = 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER' | 'TELEGRAM';
+export type SupportedProvider = 'LINKEDIN' | 'WHATSAPP' | 'INSTAGRAM' | 'MESSENGER' | 'TELEGRAM' | 'TWITTER';
 
 export type ClientOptions = {
   apiVersion: ApiVersion;
