@@ -58,7 +58,7 @@ export type PostMessengerAccountInput = {
 };
 
 /** PostCodeCheckpointInput */
-type ProviderUsingCodeCheckpoint = 'LINKEDIN' | 'INSTAGRAM';
+type ProviderUsingCodeCheckpoint = 'LINKEDIN' | 'INSTAGRAM' | 'TWITTER';
 
 export type PostCodeCheckpointInput = {
   provider: ProviderUsingCodeCheckpoint;
