@@ -45,6 +45,12 @@ export type PostInstagramAccountInput = {
   password: string;
 };
 
+/** PostTwitterAccountInput */
+export type PostTwitterAccountInput = {
+  username: string;
+  password: string;
+};
+
 /** PostMessengerAccountInput */
 export type PostMessengerAccountInput = {
   username: string;

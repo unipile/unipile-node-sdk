@@ -14,6 +14,7 @@ import {
   PostInstagramAccountInput,
   PostMessengerAccountInput,
   postQrCodeBasedAccountValidator,
+  PostTwitterAccountInput,
 } from '../index.js';
 
 export class AccountResource {
@@ -210,6 +211,41 @@ export class AccountResource {
       method: 'POST',
       body: {
         provider: 'INSTAGRAM',
+        ...input,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async connectTwitter(input: PostTwitterAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts'],
+      method: 'POST',
+      body: {
+        provider: 'TWITTER',
+        ...input,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async reconnectTwitter(
+    input: PostTwitterAccountInput & { account_id: string },
+    options?: RequestOptions,
+  ): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts', input.account_id],
+      method: 'POST',
+      body: {
+        provider: 'TWITTER',
         ...input,
       },
       headers: {
