@@ -3,6 +3,7 @@ import { Blob } from 'node-fetch';
 import {
   GetAllEmailsInput,
   GetAllFoldersInput,
+  GetEmailAttachmentInput,
   MoveEmailInput,
   RequestOptions,
   Response,
@@ -126,6 +127,17 @@ export class EmailResource {
       headers: {
         // @todo find why adding the "Content-Type: multipart/form-data" header make the request fail
       },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async getEmailAttachment(input: GetEmailAttachmentInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { email_id, attachment_id } = input;
+
+    return await this.client.request.send({
+      path: [email_id, 'attachments', attachment_id],
+      method: 'GET',
       options,
       validator: untypedYetValidator,
     });

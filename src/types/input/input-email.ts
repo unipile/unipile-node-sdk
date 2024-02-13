@@ -33,3 +33,8 @@ export type SendEmailInput = {
   body: string;
   attachments?: Array<[string, Buffer]>;
 };
+
+export type GetEmailAttachmentInput = {
+  email_id: string;
+  attachment_id: string;
+};
