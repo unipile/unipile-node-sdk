@@ -21,13 +21,15 @@ export type GetAllFoldersInput = {
   account_id?: string;
 };
 
+type MailAttendee = Array<{ display_name?: string; identifier: string }>;
+
 export type SendEmailInput = {
-  draft_id?: string;
   account_id: string;
+  to: MailAttendee;
+  cc?: MailAttendee;
+  bcc?: MailAttendee;
   subject?: string;
+  draft_id?: string;
   body: string;
-  //attachment_ids?:;
-  //to
-  //cc
-  //bcc
+  attachments?: Array<[string, Buffer]>;
 };

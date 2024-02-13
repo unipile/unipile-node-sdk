@@ -1,9 +1,12 @@
+import { FormData } from 'formdata-node';
+import { Blob } from 'node-fetch';
 import {
   GetAllEmailsInput,
   GetAllFoldersInput,
   MoveEmailInput,
   RequestOptions,
   Response,
+  SendEmailInput,
   UnipileClient,
   untypedYetValidator,
 } from '../index.js';
@@ -91,10 +94,38 @@ export class EmailResource {
     });
   }
 
-  async send(folder_id: string, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async send(input: SendEmailInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { account_id, to, cc, bcc, subject, draft_id, body, attachments } = input;
+    const formDataBody = new FormData();
+
+    formDataBody.append('body', body);
+    formDataBody.append('account_id', account_id);
+    if (draft_id) formDataBody.append('draft_id', draft_id);
+    if (subject) formDataBody.append('subject', subject);
+
+    if (attachments !== undefined) {
+      for (const [filename, buffer] of attachments) {
+        formDataBody.append('attachments', new Blob([buffer]), filename);
+      }
+    }
+
+    for (const element of to) {
+      formDataBody.append('to', JSON.stringify(element));
+    }
+    if (cc !== undefined) {
+      for (const element of cc) formDataBody.append('cc', JSON.stringify(element));
+    }
+    if (bcc !== undefined) {
+      for (const element of bcc) formDataBody.append('bcc', JSON.stringify(element));
+    }
+
     return await this.client.request.send({
       path: ['emails'],
       method: 'POST',
+      body: formDataBody,
+      headers: {
+        // @todo find why adding the "Content-Type: multipart/form-data" header make the request fail
+      },
       options,
       validator: untypedYetValidator,
     });
