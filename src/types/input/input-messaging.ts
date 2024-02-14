@@ -71,3 +71,9 @@ export type GetAllAttendeesInput = {
   limit?: number;
   account_id?: string;
 };
+
+export type PerformActionInput = {
+  chat_id: string;
+  action: 'setReadStatus';
+  value: boolean;
+};

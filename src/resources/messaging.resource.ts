@@ -13,6 +13,7 @@ import {
   GetAllMessagesFromAttendeeInput,
   GetAllChatsFromAttendeeInput,
   PostNewChatInput,
+  PerformActionInput,
 } from '../index.js';
 import { FormData } from 'formdata-node';
 import { Blob } from 'node-fetch';
@@ -232,6 +233,26 @@ export class MessagingResource {
     return await this.client.request.send({
       path: ['chat_attendees', attendee_id],
       method: 'GET',
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async setChatStatus(input: PerformActionInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { chat_id, action, value } = input;
+
+    const body = {
+      action,
+      value,
+    };
+
+    return await this.client.request.send({
+      path: ['chats', chat_id],
+      method: 'PATCH',
+      body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
       options,
       validator: untypedYetValidator,
     });
