@@ -26,18 +26,20 @@ type ProxyParams = {
   password?: string;
 };
 
-type LinkedinBasicAuthentication = {
+export type LinkedinBasicAuthenticationInput = {
   username: string;
   password: string;
+  recruiter_contract_id?: string;
   proxy?: ProxyParams;
 };
 
-type LinkedinCookieAuthentication = {
+export type LinkedinCookieAuthenticationInput = {
+  proxy?: ProxyParams;
+  recruiter_contract_id?: string;
   access_token: string;
-  proxy?: ProxyParams;
+  premium_token?: string;
+  user_agent?: string;
 };
-
-export type PostLinkedinAccountInput = LinkedinBasicAuthentication | LinkedinCookieAuthentication;
 
 /** PostInstagramAccountInput */
 export type PostInstagramAccountInput = {

@@ -5,7 +5,6 @@ import {
   Output,
   PostCodeCheckpointInput,
   PostHostedAuthLinkInput,
-  PostLinkedinAccountInput,
   ReconnectAccountInput,
   RequestOptions,
   Response,
@@ -15,6 +14,8 @@ import {
   PostMessengerAccountInput,
   postQrCodeBasedAccountValidator,
   PostTwitterAccountInput,
+  LinkedinBasicAuthenticationInput,
+  LinkedinCookieAuthenticationInput,
 } from '../index.js';
 
 export class AccountResource {
@@ -151,7 +152,26 @@ export class AccountResource {
     };
   }
 
-  async connectLinkedin(input: PostLinkedinAccountInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+  async connectLinkedin(input: LinkedinBasicAuthenticationInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts'],
+      method: 'POST',
+      body: {
+        provider: 'LINKEDIN',
+        ...input,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async connectLinkedinWithCookie(
+    input: LinkedinCookieAuthenticationInput,
+    options?: RequestOptions,
+  ): Promise<Response.UntypedYet> {
     return await this.client.request.send({
       path: ['accounts'],
       method: 'POST',
@@ -168,7 +188,26 @@ export class AccountResource {
   }
 
   async reconnectLinkedin(
-    input: PostLinkedinAccountInput & { account_id: string },
+    input: LinkedinBasicAuthenticationInput & { account_id: string },
+    options?: RequestOptions,
+  ): Promise<Response.UntypedYet> {
+    return await this.client.request.send({
+      path: ['accounts', input.account_id],
+      method: 'POST',
+      body: {
+        provider: 'LINKEDIN',
+        ...input,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      options,
+      validator: untypedYetValidator,
+    });
+  }
+
+  async reconnectLinkedinWithCookie(
+    input: LinkedinCookieAuthenticationInput & { account_id: string },
     options?: RequestOptions,
   ): Promise<Response.UntypedYet> {
     return await this.client.request.send({
