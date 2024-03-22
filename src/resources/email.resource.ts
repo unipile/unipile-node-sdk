@@ -4,7 +4,7 @@ import {
   GetAllEmailsInput,
   GetAllFoldersInput,
   GetEmailAttachmentInput,
-  MoveEmailInput,
+  UpdateEmailInput,
   RequestOptions,
   Response,
   SendEmailInput,
@@ -57,16 +57,16 @@ export class EmailResource {
     });
   }
 
-  async move(input: MoveEmailInput, options?: RequestOptions): Promise<Response.UntypedYet> {
-    const { email_id, action, folder } = input;
+  async update(input: UpdateEmailInput, options?: RequestOptions): Promise<Response.UntypedYet> {
+    const { email_id, folders } = input;
 
-    const parameters: Record<string, string> = {};
-    parameters.action = action;
-    if (folder) parameters.folder = folder;
+    const body: Record<string, any> = {};
+    body.folders = folders;
 
     return await this.client.request.send({
       path: ['emails', email_id],
-      method: 'PATCH',
+      method: 'PUT',
+      body,
       options,
       validator: untypedYetValidator,
     });

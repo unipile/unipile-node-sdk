@@ -11,10 +11,9 @@ export type GetAllEmailsInput = {
   cursor?: string;
 };
 
-export type MoveEmailInput = {
+export type UpdateEmailInput = {
   email_id: string;
-  action: 'move' | 'archive';
-  folder?: string;
+  folders: string[];
 };
 
 export type GetAllFoldersInput = {
