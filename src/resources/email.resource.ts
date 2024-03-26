@@ -110,14 +110,12 @@ export class EmailResource {
       }
     }
 
-    for (const element of to) {
-      formDataBody.append('to', JSON.stringify(element));
-    }
+    formDataBody.append('to', JSON.stringify(to));
     if (cc !== undefined) {
-      for (const element of cc) formDataBody.append('cc', JSON.stringify(element));
+      formDataBody.append('cc', JSON.stringify(cc));
     }
     if (bcc !== undefined) {
-      for (const element of bcc) formDataBody.append('bcc', JSON.stringify(element));
+      formDataBody.append('bcc', JSON.stringify(bcc));
     }
 
     return await this.client.request.send({
