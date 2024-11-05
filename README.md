@@ -51,7 +51,7 @@ The Unipile Node.js SDK provides powerful tools to easily integrate with LinkedI
 
 # Installation
 
-Node 18 recommended
+Node 18+ required
 <br>
 
 ```

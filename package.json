@@ -24,7 +24,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=12.*"
+    "node": ">=18.*"
   },
   "scripts": {
     "test-e2e-clean": "jest --clearCache && jest --showConfig && jest --verbose --config ./jest.config.js",
