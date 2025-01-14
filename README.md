@@ -280,7 +280,8 @@ This may be useful if you know about and want to use a parameter that is either 
 
 ## Handling Errors
 
-```try {
+```javascript
+ try {
        const result = await client.messaging.getAllAttendees({
          account_id,
        });
@@ -365,12 +366,16 @@ This may be useful if you know about and want to use a parameter that is either 
 ## Endpoint Not Packaged in SDK
 
 Example of using the "Get raw data" route
+
 Refer to: https://developer.unipile.com/docs/get-raw-data-example#following-someone
+
 This can be adapted to support all routes not included in the SDK.
 
 
-```const client = new UnipileClient(BASE_URL, "ACCESS_TOKEN", {});
 
+
+```javascript
+const client = new UnipileClient(BASE_URL, "ACCESS_TOKEN", {});
 await client.request.send({
   path: ["linkedin"],
   method: "POST",
