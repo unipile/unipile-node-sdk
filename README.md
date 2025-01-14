@@ -278,6 +278,111 @@ Depending on the underlying HTTP request mode used, `extra_params` will be added
 
 This may be useful if you know about and want to use a parameter that is either omitted or not yet defined in the sdk.
 
+## Handling Errors
+
+```try {
+       const result = await client.messaging.getAllAttendees({
+         account_id,
+       });
+     } catch (err) {
+       if (err instanceof UnsuccessfulRequestError) {
+         console.log("UnsuccessfulRequestError", err.message, err.body);
+
+         const { status, type } = err.body;
+
+         // depeding on the granularity you want, use status :
+         switch (status) {
+           case 401:
+             // ...
+             break;
+           case 403:
+             // ...
+             break;
+           case 404:
+             // ...
+             break;
+           case 500:
+             // ...
+             break;
+           case 503:
+             // ...
+             break;
+           case 504:
+             // ...
+             break;
+           default:
+             // ...
+             break;
+         }
+
+         // or type ( or both )
+         switch (type) {
+           case "errors/missing_credentials":
+             // ...
+             break;
+           case "errors/multiple_sessions":
+             // ...
+             break;
+           case "errors/invalid_checkpoint_solution":
+             // ...
+             break;
+           case "errors/checkpoint_error":
+             // ...
+             break;
+           case "errors/invalid_credentials":
+             // ...
+             break;
+           case "errors/expired_credentials":
+             // ...
+             break;
+           case "errors/insufficient_privileges":
+             // ...
+             break;
+           case "errors/disconnected_account":
+             // ...
+             break;
+           case "errors/invalid_credentials_but_valid_account_imap":
+             // ...
+             break;
+           case "errors/expired_link ":
+             // ...
+             break;
+           case "errors/wrong_account":
+             // ...
+             break;
+
+           /*
+             cf https://developer.unipile.com/reference/chatattendeescontroller_listallattendees 
+             for all used error types 
+             */
+           default:
+             // ...
+             break;
+         }
+       }```
+
+## Endpoint Not Packaged in SDK
+
+Example of using the "Get raw data" route
+Refer to: https://developer.unipile.com/docs/get-raw-data-example#following-someone
+This can be adapted to support all routes not included in the SDK.
+
+
+```const client = new UnipileClient(BASE_URL, "ACCESS_TOKEN", {});
+
+await client.request.send({
+  path: ["linkedin"],
+  method: "POST",
+  parameters: { account_id: "!!YOURACCOUNTID!!" },
+  body: {
+    "body": {"patch":{"$set":{"following":true}}},
+    "account_id": "dfR-rG0tQfGhfeP2l5_Bdw",
+    "method": "POST",
+    "request_url": "https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_profile:ACoAAAcDMMQBODyLwZrRcgYhrkCafURGqva0U4E",
+    "encoding": false
+  },
+});```
+
 # LinkedIn Specific
 
 ## InMail LinkedIn API
