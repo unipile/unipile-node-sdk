@@ -351,7 +351,7 @@ This may be useful if you know about and want to use a parameter that is either 
              // ...
              break;
 
-           /*
+             /*
              cf https://developer.unipile.com/reference/chatattendeescontroller_listallattendees 
              for all used error types 
              */
@@ -359,7 +359,8 @@ This may be useful if you know about and want to use a parameter that is either 
              // ...
              break;
          }
-       }```
+       }
+```
 
 ## Endpoint Not Packaged in SDK
 
@@ -381,7 +382,8 @@ await client.request.send({
     "request_url": "https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_profile:ACoAAAcDMMQBODyLwZrRcgYhrkCafURGqva0U4E",
     "encoding": false
   },
-});```
+});
+```
 
 # LinkedIn Specific
 
