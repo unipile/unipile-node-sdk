@@ -404,6 +404,7 @@ await client.messaging.startNewChat({
   text: 'send a inmail',
   options: {
     linkedin: {
+      api: 'classic' // recruiter / sales_navigator
       inmail: true,
     },
   },
