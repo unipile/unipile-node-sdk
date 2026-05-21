@@ -14,7 +14,7 @@ type OverwritableClientOptions = Partial<
   Pick<ClientOptions, 'logRequestResult' | 'logRequestPayload' | 'validateRequestPayload' | 'validateRequestPayloadLevel'>
 >;
 export type RequestOptions = OverwritableClientOptions & {
-  extra_params?: Record<string, string>;
+  extra_params?: Record<string, string | string[]>;
 }; // & {}
 
 export type RequestUrl = {
