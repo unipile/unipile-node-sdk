@@ -47,7 +47,7 @@ export class RequestSender {
     });
 
     if (options.logRequestResult ?? this.clientState.logRequestResult)
-      console.log(`RequestSender: ${response.status}, ${response.statusText} - ${input.method} ${url}`);
+      console.log('RequestSender:', response.status, response.statusText, '-', input.method, url);
 
     const bodyType = response.headers.get('content-type');
     let body;
