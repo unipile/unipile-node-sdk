@@ -1,10 +1,10 @@
-import { TypeSystem } from "@sinclair/typebox/system";
-import { HttpUrl, isHttpUrl } from "./core.types.tmp.js";
+import { HttpUrl, isHttpUrl } from './core.types.tmp.js';
+import { registeredType } from './type-system.js';
 
 /**
  *
  */
-export const HttpUrlType = TypeSystem.Type<HttpUrl>(
-  "HttpUrl",
-  (options, value) => isHttpUrl(value)
+export const HttpUrlType = registeredType<HttpUrl>(
+  'HttpUrl',
+  (_options, value) => isHttpUrl(value),
 );

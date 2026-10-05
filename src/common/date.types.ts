@@ -1,4 +1,4 @@
-import { TypeSystem } from '@sinclair/typebox/system';
+import { registeredType } from './type-system.js';
 import {
   HourMinuteTime,
   Tzid,
@@ -17,7 +17,7 @@ export const UTCDateTimePattern = '^[1-2]\\d{3}-[0-1]\\d-[0-3]\\dT\\d{2}:\\d{2}:
  *
  */
 
-export const UTCDateTimeMsType = TypeSystem.Type<UTCDateTimeMs>('UTCDateTimeMs', (options, value) => isUTCDateTimeMs(value));
+export const UTCDateTimeMsType = registeredType<UTCDateTimeMs>('UTCDateTimeMs', (_options, value) => isUTCDateTimeMs(value));
 
 /** */
 export const UTCDateTimeMsSchema = UTCDateTimeMsType({
@@ -29,11 +29,11 @@ export const UTCDateTimeMsSchema = UTCDateTimeMsType({
 /**
  *
  */
-export const UnixTimeMsType = TypeSystem.Type<UnixTimeMs>('UnixTimeMs', (options, value) => isUnixTimeMs(value));
+export const UnixTimeMsType = registeredType<UnixTimeMs>('UnixTimeMs', (_options, value) => isUnixTimeMs(value));
 
 /**
  *
  */
-export const TzidType = TypeSystem.Type<Tzid>('Tzid', (options, value) => isTzid(value));
+export const TzidType = registeredType<Tzid>('Tzid', (_options, value) => isTzid(value));
 
-export const HourMinuteTimeType = TypeSystem.Type<HourMinuteTime>('HourMinuteTime', (options, value) => isHourMinuteTime(value));
+export const HourMinuteTimeType = registeredType<HourMinuteTime>('HourMinuteTime', (_options, value) => isHourMinuteTime(value));

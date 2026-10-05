@@ -1,6 +1,6 @@
 import { Static, Type } from "@sinclair/typebox";
 import { TypeCompiler } from "@sinclair/typebox/compiler";
-import { TypeSystem } from "@sinclair/typebox/system";
+import { registeredFormat } from "../common/type-system.js";
 
 /**
  * @note Keep sub-schemas separated to be able to validate only the parts you're
@@ -17,7 +17,7 @@ import { TypeSystem } from "@sinclair/typebox/system";
  *       graduate it to a VerifiedEmail.
  */
 const LOOSE_EMAIL_SHAPE_REGEX = /^\S+@\S+\.\S+$/;
-TypeSystem.Format("emailLike", (s) => LOOSE_EMAIL_SHAPE_REGEX.test(s));
+registeredFormat("emailLike", (s) => LOOSE_EMAIL_SHAPE_REGEX.test(s));
 export const EmailSchema = Type.String({ format: "emailLike" });
 export type Email = Static<typeof EmailSchema>;
 export const EmailValidator = TypeCompiler.Compile(EmailSchema);
