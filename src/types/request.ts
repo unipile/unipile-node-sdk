@@ -22,14 +22,14 @@ export type RequestUrl = {
   domain: string;
   apiVersion: string;
   path: Array<string>;
-  parameters: Record<string, string>;
+  parameters: Record<string, string | string[]>;
 };
 
 export type RequestInput = {
   method: 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH';
   path: Array<string>;
   validator?: TypeCheck<TSchema>;
-  parameters?: Record<string, string>;
+  parameters?: Record<string, string | string[]>;
   body?: Record<string, any>;
   headers?: RequestHeaders;
   options?: RequestOptions | undefined;

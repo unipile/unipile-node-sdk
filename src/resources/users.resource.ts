@@ -40,11 +40,10 @@ export class UsersResource {
   async getProfile(input: GetProfileInput, options?: RequestOptions): Promise<UserProfileApiResponse> {
     const { identifier, account_id, linkedin_api, linkedin_sections } = input;
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     parameters.account_id = account_id;
     if (linkedin_api) parameters.linkedin_api = linkedin_api;
-    if (linkedin_sections)
-      parameters.linkedin_sections = typeof linkedin_sections === 'string' ? linkedin_sections : linkedin_sections.join(',');
+    if (linkedin_sections) parameters.linkedin_sections = linkedin_sections;
 
     return await this.client.request.send({
       path: ['users', identifier],

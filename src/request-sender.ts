@@ -88,8 +88,21 @@ export class RequestSender {
       /**
        * @todo Check if we need to something about + signs ?
        *       cf. https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams#preserving_plus_signs
+       *
+       * Array values are emitted as repeated keys (e.g. linkedin_sections=a&linkedin_sections=b)
+       * so APIs that expect StringEnum per index are not given a comma-joined string.
        */
-      formattedParameters = '?' + new URLSearchParams(parameters).toString();
+      const searchParams = new URLSearchParams();
+      for (const [key, value] of Object.entries(parameters)) {
+        if (Array.isArray(value)) {
+          for (const item of value) {
+            searchParams.append(key, item);
+          }
+        } else {
+          searchParams.append(key, value);
+        }
+      }
+      formattedParameters = '?' + searchParams.toString();
     }
 
     const url = protocol + '://' + domain + '/api' + formattedApiVersion + formattedPath + formattedParameters;
