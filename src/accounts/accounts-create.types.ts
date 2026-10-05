@@ -73,6 +73,11 @@ export type MessagingSyncLimit = Static<typeof MessagingSyncLimitSchema>;
  *
  */
 export const AccountCreateBaseSchema = Type.Object({
+  ip: Type.Optional(
+    Type.String({
+      description: 'IP address to associate with the account connection.',
+    }),
+  ),
   disabled_features: Type.Optional(
     Type.Array(StringEnum(['linkedin_recruiter', 'linkedin_sales_navigator', 'linkedin_organizations_mailboxes']), {
       description: 'An array of features that should be disabled for this account.',
