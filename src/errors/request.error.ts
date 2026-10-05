@@ -3,8 +3,20 @@ import { UnipileError } from './unipile.error.js';
 
 export class UnsuccessfulRequestError extends UnipileError {
   constructor(body: unknown) {
-    super({ message: '', body });
+    super({ message: unsuccessfulRequestMessage(body), body });
   }
+}
+
+function unsuccessfulRequestMessage(body: unknown): string {
+  if (body && typeof body === 'object') {
+    const record = body as Record<string, unknown>;
+    for (const key of ['message', 'detail', 'title', 'type'] as const) {
+      const value = record[key];
+      if (typeof value === 'string' && value.trim()) return value;
+    }
+  }
+  if (typeof body === 'string' && body.trim()) return body;
+  return 'Unsuccessful request';
 }
 
 export class InvalidResponseTypeError extends UnipileError {
