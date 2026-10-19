@@ -124,7 +124,7 @@ export class EmailResource {
   async getAll(input: GetAllEmailsInput = {}, options?: RequestOptions): Promise<MailListApiResponse> {
     const { account_id, role, folder, from, to, any_email, before, after, limit, cursor } = input;
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     if (account_id) parameters.account_id = account_id;
     if (role) parameters.role = role;
     if (folder) parameters.folder = folder;
@@ -238,7 +238,7 @@ export class EmailResource {
   async getAllFolders(input: GetAllFoldersInput = {}, options?: RequestOptions): Promise<FolderListApiResponse> {
     const { account_id } = input;
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     if (account_id) parameters.account_id = account_id;
 
     return await this.client.request.send({
@@ -316,7 +316,9 @@ export class EmailResource {
     if (options?.extra_params) {
       Object.entries(options.extra_params).forEach(([k, v]) => {
         if (!formDataBody.has(k)) {
-          formDataBody.append(k, v);
+          for (const item of Array.isArray(v) ? v : [v]) {
+            formDataBody.append(k, item);
+          }
         }
       });
     }

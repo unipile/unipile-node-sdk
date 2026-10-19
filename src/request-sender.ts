@@ -89,7 +89,13 @@ export class RequestSender {
        * @todo Check if we need to something about + signs ?
        *       cf. https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams#preserving_plus_signs
        */
-      formattedParameters = '?' + new URLSearchParams(parameters).toString();
+      const searchParams = new URLSearchParams();
+      Object.entries(parameters).forEach(([key, value]) => {
+        for (const item of Array.isArray(value) ? value : [value]) {
+          searchParams.append(key, item);
+        }
+      });
+      formattedParameters = '?' + searchParams.toString();
     }
 
     const url = protocol + '://' + domain + '/api' + formattedApiVersion + formattedPath + formattedParameters;

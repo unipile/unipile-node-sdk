@@ -40,7 +40,7 @@ export class UsersResource {
   async getProfile(input: GetProfileInput, options?: RequestOptions): Promise<UserProfileApiResponse> {
     const { identifier, account_id, linkedin_api, linkedin_sections } = input;
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     parameters.account_id = account_id;
     if (linkedin_api) parameters.linkedin_api = linkedin_api;
     if (linkedin_sections)
@@ -68,7 +68,7 @@ export class UsersResource {
   async getAllRelations(input: GetAllRelationsInput, options?: RequestOptions): Promise<UserRelationsListApiResponse> {
     const { account_id, limit, cursor } = input;
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     parameters.account_id = account_id;
     if (limit !== undefined && limit > 0) parameters.limit = String(limit);
     if (cursor) parameters.cursor = cursor;
@@ -101,7 +101,7 @@ export class UsersResource {
   async getAllPosts(input: GetAllPostsInput, options?: RequestOptions): Promise<UserPostListApiResponse> {
     const { identifier, account_id, limit, is_company, cursor } = input;
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     parameters.account_id = account_id;
     if (is_company !== undefined) parameters.is_company = is_company ? 'true' : 'false';
     if (limit) parameters.limit = String(limit);
@@ -134,7 +134,7 @@ export class UsersResource {
   async getAllPostComments(input: GetAllPostCommentsInput, options?: RequestOptions): Promise<PostCommentListApiResponse> {
     const { account_id, post_id, limit, cursor } = input;
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     parameters.account_id = account_id;
     if (limit !== undefined && limit > 0) parameters.limit = String(limit);
     if (cursor) parameters.cursor = cursor;
@@ -164,7 +164,9 @@ export class UsersResource {
     if (options?.extra_params) {
       Object.entries(options.extra_params).forEach(([k, v]) => {
         if (!body.has(k)) {
-          body.append(k, v);
+          for (const item of Array.isArray(v) ? v : [v]) {
+            body.append(k, item);
+          }
         }
       });
     }
@@ -220,7 +222,7 @@ export class UsersResource {
   ): Promise<UserInvitationSentListApiResponse> {
     const { account_id, limit, cursor } = input;
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     parameters.account_id = account_id;
     if (limit !== undefined && limit > 0) parameters.limit = String(limit);
     if (cursor) parameters.cursor = cursor;

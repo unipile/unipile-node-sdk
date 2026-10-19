@@ -37,7 +37,7 @@ export class AccountResource {
   async getAll(input: GetAccountsInput = {}, options?: RequestOptions): Promise<AccountListApiResponse> {
     const { limit, cursor } = input;
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     // console.log('getAll', options, parameters);
     if (limit) parameters.limit = String(limit);
     if (cursor) parameters.cursor = cursor;
@@ -427,7 +427,7 @@ export class AccountResource {
       throw new InvalidInputTypeError(UniqueIdValidator.Errors(account_id));
     }
 
-    const parameters: Record<string, string> = { ...options?.extra_params };
+    const parameters: Record<string, string | string[]> = { ...options?.extra_params };
     if (linkedin_product) {
       parameters.linkedin_product = linkedin_product;
     }
